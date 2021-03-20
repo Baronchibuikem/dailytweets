@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -155,7 +156,7 @@ CELERY_TIMEZONE = 'Africa/Lagos'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # For twitter authentication
-CONSUMER_KEY = ""
-CONSUMER_SECRET = ""
-ACCESS_TOKEN = ""
-ACCESS_TOKEN_SECRET = ""
+CONSUMER_KEY = config("CONSUMER_KEY")
+CONSUMER_SECRET = config("CONSUMER_SECRET")
+ACCESS_TOKEN = config("ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = config("ACCESS_TOKEN_SECRET")
