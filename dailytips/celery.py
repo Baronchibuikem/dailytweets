@@ -22,7 +22,7 @@ app.conf.beat_schedule = {
 # Executes every Monday morning at 7:30 a.m.
 'run_testing': {
     # run this task every minute
-    'task': 'tips.tasks.send_reminder',
+    'task': 'tips.tasks.get_daily_tips',
     'schedule': crontab()
   },
 }
