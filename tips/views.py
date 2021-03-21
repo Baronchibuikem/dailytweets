@@ -9,11 +9,10 @@ from tips.models import DailyTip
 
 
 
-def displaytweets(request):
-    
-    # tweets = DailyTip.events.all()
+def displaytweets(request):    
+    tweets = DailyTip.tweets.all()
     context = {
-        "tweets": "tweets"
+        "tweets": set(tweets)
     }
     template = "tips/tweet_list.html"
     return render(request, template, context)

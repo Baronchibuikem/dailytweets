@@ -3,7 +3,7 @@ from django.db import models
 
 class DailyTip(models.Model):
     id = models.AutoField(primary_key=True)
-    python_tip = models.CharField(max_length=500)
+    python_tip = models.TextField(max_length=500)
     posted_by = models.CharField(max_length=100, blank=True)
     timestamp = models.DateField()
     url = models.URLField()

@@ -57,14 +57,14 @@ def get_daily_tips():
             tweets_obj["link__expanded_url"] = url["expanded_url"]
             tweets_obj["link__display_url"]= url["display_url"]
             print("----------------------------------",tweets_obj)
-        # tweets = DailyTip.tweets.create(
-        #         # id = tweets_obj["id"],
-        #         python_tip = tweets_obj["python_tip"],
-        #         posted_by =tweets_obj["posted_by"],
-        #         timestamp= tweets_obj["timestamp"],
-        #         url= tweets_obj["link__url"],
-        #         expanded_url= tweets_obj["link__expanded_url"] ,
-        #         display_url= tweets_obj["link__display_url"]
-        # )
-        # tweets.save()
-        # return tweets_obj
+            tweets = DailyTip.tweets.create(
+                    # id = tweets_obj["id"],
+                    python_tip = tweets_obj["python_tip"],
+                    posted_by =tweets_obj["posted_by"],
+                    timestamp= tweets_obj["timestamp"],
+                    url= tweets_obj["link__url"],
+                    expanded_url= tweets_obj["link__expanded_url"] ,
+                    display_url= tweets_obj["link__display_url"]
+            )
+            tweets.save()
+            # return tweets_obj
