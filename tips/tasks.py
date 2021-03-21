@@ -34,7 +34,7 @@ def get_daily_tips():
     # textonly_tweets = [tweet.full_text for tweet in timeline]
     # print(*textonly_tweets, sep = "\n")
     for tweet in timeline:
-        # print(tweet.full_text)
+        # print(tweet.retweet_count)
         urls = tweet.entities["urls"]
         for url in urls:
             # print({
@@ -56,7 +56,6 @@ def get_daily_tips():
             tweets_obj["link__url"] = url["url"]
             tweets_obj["link__expanded_url"] = url["expanded_url"]
             tweets_obj["link__display_url"]= url["display_url"]
-            print("----------------------------------",tweets_obj)
             tweets = DailyTip.tweets.create(
                     # id = tweets_obj["id"],
                     python_tip = tweets_obj["python_tip"],
@@ -67,4 +66,3 @@ def get_daily_tips():
                     display_url= tweets_obj["link__display_url"]
             )
             tweets.save()
-            # return tweets_obj

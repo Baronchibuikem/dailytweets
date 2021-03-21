@@ -9,6 +9,8 @@ class DailyTip(models.Model):
     url = models.URLField()
     expanded_url = models.URLField()
     display_url = models.URLField()
+    likes = models.CharField(max_length=999999, blank=True, default="")
+    retweets = models.CharField(max_length=999999, blank=True, default="")
     tweets = models.Manager()
 
     def __str__(self):
