@@ -34,56 +34,37 @@ def get_daily_tips():
     # textonly_tweets = [tweet.full_text for tweet in timeline]
     # print(*textonly_tweets, sep = "\n")
     for tweet in timeline:
-        # print(tweet)
+        # print(tweet.full_text)
         urls = tweet.entities["urls"]
         for url in urls:
             # print({
             #     "text": tweet.id
             # })
-            DailyTip({
-                "id": tweet.id,
-                "python_tip":tweet.full_text,
-                "posted_by" : tweet.user.name,
-                "timestamp": tweet.created_at,
-                "link__url": url["url"],
-                "link__expanded_url": url["expanded_url"],
-                "link__display_url": url["display_url"]
-            }).save()
-        # tweet_obj = {
-        #     "text": tweet.full_text,
-        #     "timestamp": tweet.created_at,
-        #     "urls": tweet.entities,
-
-        # }
-        # print(tweet_obj, sep="\n")
-
-    # new_tweet = DailyTip(
-    #     "python_tip": python_tip_account.name
-    #     "link": "value",
-    #     "posted_by" : python_tip_account.screen_name
-    #     "published": "value",
-    #     "timestamp": "value"
-    # )
-    # new_tweet.save()
-
-# [{
-#     'url': 'https://t.co/4TRTgGhwGt', 
-#     'expanded_url': 'https://resources.rstudio.com/resources/rstudioglobal-2021/using-pins-with-python-and-javascript/', 
-#     'display_url': 'resources.rstudio.com/resources/rstu…', 
-#     'indices': [112, 135]
-#     }
-#     ]
-
-# {'hashtags': [], 'symbols': [], 
-# 'user_mentions': 
-# [{'screen_name': 'gvanrossum', 'name': 'Guido van Rossum', 'id': 15804774, 'id_str': '15804774',
-#  'indices': [77, 88]}
-# ],
-#  'urls': [
-# {'url': 'https://t.co/BphxIqN4SA', 
-#  'expanded_url': 'https://github.com/gvanrossum/patma/blob/master/README.md#tutorial', 
-#  'display_url': 'github.com/gvanrossum/pat…', 'indices': [91, 114]}, 
-#  {'url': 'https://t.co/tEvrIzAzhH', 
-#  'expanded_url': 'https://twitter.com/gvanrossum/status/1361124478671933443', 
-#  'display_url': 'twitter.com/gvanrossum/sta…', 
-#  'indices': [115, 138]}]}
+            # tweets_obj.append({
+            #     "id": tweet.id,
+            #     "python_tip":tweet.full_text,
+            #     "posted_by" : tweet.user.name,
+            #     "timestamp": tweet.created_at,
+            #     "link__url": url["url"],
+            #     "link__expanded_url": url["expanded_url"],
+            #     "link__display_url": url["display_url"]
+            # })
+            # tweets_obj["id"] = tweet.id
+            tweets_obj["python_tip"] = tweet.full_text
+            tweets_obj["posted_by"] = tweet.user.name
+            tweets_obj["timestamp"] = tweet.created_at
+            tweets_obj["link__url"] = url["url"]
+            tweets_obj["link__expanded_url"] = url["expanded_url"]
+            tweets_obj["link__display_url"]= url["display_url"]
+            print("----------------------------------",tweets_obj)
+        # tweets = DailyTip.tweets.create(
+        #         # id = tweets_obj["id"],
+        #         python_tip = tweets_obj["python_tip"],
+        #         posted_by =tweets_obj["posted_by"],
+        #         timestamp= tweets_obj["timestamp"],
+        #         url= tweets_obj["link__url"],
+        #         expanded_url= tweets_obj["link__expanded_url"] ,
+        #         display_url= tweets_obj["link__display_url"]
+        # )
+        # tweets.save()
+        # return tweets_obj
