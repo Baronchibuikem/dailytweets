@@ -8,6 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dailytips.settings')
 app = Celery('dailytips')
 
 
+
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
 # - namespace='CELERY' means all celery-related configuration keys
