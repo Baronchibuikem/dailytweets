@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <div class="" style="
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  ">
+  <h4>Login to access the platform</h4>
+      <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-primary p-3">Login with Twitter</a>
+      </div>
+  </div>
+{% endblock %}

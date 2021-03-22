@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_beat',
     'django_celery_results',
+    'social_django', 
+    'crispy_forms',
 
     # our custom apps
     "tips"
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware', 
 ]
 
 ROOT_URLCONF = 'dailytips.urls'
@@ -73,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -160,7 +165,21 @@ CONSUMER_KEY = config("CONSUMER_KEY")
 CONSUMER_SECRET = config("CONSUMER_SECRET")
 ACCESS_TOKEN = config("ACCESS_TOKEN")
 ACCESS_TOKEN_SECRET = config("ACCESS_TOKEN_SECRET")
+
+# A twiiter acount we want to use
 TWITTER_USER = "python_tip"
-NUMBER_OF_TWEETS = "10"
 
+# number of tweets we want returned from twitter
+NUMBER_OF_TWEETS = "20"
 
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'tips:home'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_TWITTER_KEY = config("CONSUMER_KEY")
+SOCIAL_AUTH_TWITTER_SECRET = config("CONSUMER_SECRET")
