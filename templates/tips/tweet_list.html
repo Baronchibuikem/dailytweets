@@ -3,14 +3,21 @@
 {% block title %}Daily tweets | {% endblock title %}
 
 {% block content %}
-{% for tweet in tweets %}
-    <div class="card">
-    <h5 class="card-header">Posted by {{ tweet.posted_by}}</h5>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">{{ tweet.python_tip}}</p>
-        <a href="#" class="btn btn-primary">{{tweet.url}}</a>
-    </div>
-</div>
-{% endfor %}
+    {% for tweet in tweets %}
+        <div class="card my-3 shadow-sm">
+            <h5 class="card-header">Posted by {{ tweet.posted_by}}</h5>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">{{ tweet.python_tip}}</p>
+                <a href="#" class="btn btn-primary">{{tweet.url}}</a>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex ">
+                    <span class="mr-5"> Total Retweets {{tweet.retweets}}</span>
+                    <span> Total likes {{tweet.likes }} </span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% include "pagination.html" with page=tweets %}
 {% endblock content%}
