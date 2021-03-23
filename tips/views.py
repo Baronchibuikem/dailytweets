@@ -11,12 +11,16 @@ from tips.models import DailyTip
 
 
 
-def displaytweets(request):    
+def displaytweets(request):  
+    # fetch all objects from DailyTip table in the database  
     tweets = DailyTip.objects.all()
-    print("A TEWWET",tweets[0].urls.all().values())
+
+    # used for search functionality
     query = request.GET.get("q")
     if query:
         tweets = tweets.filter(Q(python_tip__icontains=query)).distinct()
+
+    # for pagination
     paginator = Paginator(tweets, 20)
     page_number = request.GET.get('page')
     try:
@@ -25,6 +29,8 @@ def displaytweets(request):
         page_obj = paginator.get_page(1)
     except EmptyPage:
         page_obj = paginator.get_page(paginator.num_pages)
+    
+    # context dictionary
     context = {
         "tweets": page_obj
     }

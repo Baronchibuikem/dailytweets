@@ -160,7 +160,11 @@ CONSUMER_KEY = config("CONSUMER_KEY")
 CONSUMER_SECRET = config("CONSUMER_SECRET")
 ACCESS_TOKEN = config("ACCESS_TOKEN")
 ACCESS_TOKEN_SECRET = config("ACCESS_TOKEN_SECRET")
+
+# A twiiter acount we want to use
 TWITTER_USER = "python_tip"
+
+# number of tweets we want returned from twitter
 NUMBER_OF_TWEETS = "20"
 
 

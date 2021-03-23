@@ -3,13 +3,15 @@
 {% block title %}Daily tweets | {% endblock title %}
 
 {% block content %}
+    <h3 class="my-5 text-center"> Display Tweets according to popularity using number of likes</h3>
     {% for tweet in tweets %}
-        <div class="card my-3 shadow-sm">
-            <h5 class="card-header">Posted by {{ tweet.posted_by}}</h5>
+        <div class="card my-5 shadow-sm">
+            <h5 class="card-header"><small>Posted by</small> {{ tweet.posted_by}} on {{ tweet.timestamp }}</h5>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">{{ tweet.python_tip}}</p>
-                <a href="#" class="btn btn-primary">{{tweet.url}}</a>
+                {% for link in tweet.urls.all %}
+                    <a href="{{link.expanded_url}}" target="__blank" class="">{{link.display_url}}</a>
+                {% endfor %}
             </div>
             <div class="card-footer">
                 <div class="d-flex ">

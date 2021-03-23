@@ -4,7 +4,9 @@ from tips.models import DailyTip, TweetLinks
 class DailyTipAdmin(admin.ModelAdmin):
     list_display = ["id","tip_id","timestamp", "posted_by","retweets","likes", "python_tip"]
 
-admin.site.register(DailyTip, DailyTipAdmin)
-admin.site.register(TweetLinks)
+class TweetLinksAdmin(admin.ModelAdmin):
+    list_display = ["id", "url", "expanded_url", "display_url"]
 
-# Register your models here.
+admin.site.register(DailyTip, DailyTipAdmin)
+admin.site.register(TweetLinks, TweetLinksAdmin)
+
