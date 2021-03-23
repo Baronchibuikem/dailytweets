@@ -41,12 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party apps
+    'rest_framework.authtoken',
     'drf_yasg',
     'rest_framework',
     'django_celery_beat',
     'django_celery_results',
     'social_django', 
     'crispy_forms',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
+    'dj_rest_auth',
 
     # our custom apps
     "tips"
@@ -185,3 +194,5 @@ AUTHENTICATION_BACKENDS = (
 # For twitter social auth login
 SOCIAL_AUTH_TWITTER_KEY = config("CONSUMER_KEY")
 SOCIAL_AUTH_TWITTER_SECRET = config("CONSUMER_SECRET")
+
+SITE_ID = 3

@@ -13,6 +13,18 @@ And lastly we will be adding a functionality to allow authenticated user's throu
 This project was developed using python, django, tweepy, celery, social-auth-app-django, bootstrap4, redis
 
 ## How to setup this project
+
+Please Note that both the Django templating and API integration was developed on this project 
+
+To view the application in Django templating mode, navigate to the url below:
+
+            http://127.0.0.1:8000/tips/
+
+To view the API links created for this applications, navigate to the url below
+
+            http://127.0.0.1:8000
+
+
 Please ensure you can run celery and bash on your computer and follow the following instruction
 
 Navigate to https://developer.twitter.com/, setup an application(if twitter has giving you develper access), set the permission to **Read, Write and Direct Messages** and generate your CONSUMER KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACESS_TOKEN_SECRET
@@ -49,6 +61,19 @@ For testing purposes you make configure the job to run every minute
 To read more about scheduling period task using celery, visit https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html
 
 For example of of how to use it, feel free to read my short article here https://baronchibuike.medium.com/scheduling-periodic-task-in-django-rest-using-celery-and-redis-f67754eca013
+
+
+In order for your API twitter social login to work, you need to go to your admin interface
+
+            Click on the Site Table and add a new site with Domain name and Display name(eg, Domain name: 127.0.0.1, Display name: DailyTips)
+
+            click on "social application" table
+
+            Add a new social application -> you will be required to select a provider(in this case Twitter), add a name for the application, add your twiiter generated CONSUMER_KEY and CONSUMER_SECRET.
+
+            Add your 127.0.0.1 to choosen sites and save 
+
+For further more detailed information, you can checkout this documentation https://django-rest-auth.readthedocs.io/en/latest/installation.html#social-authentication-optional
 
 
 ## Next step
