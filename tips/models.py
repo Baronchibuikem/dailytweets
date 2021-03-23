@@ -12,6 +12,9 @@ from django.db import models
     
 
 class PostDailyTip(models.Model):
+    """
+    For uploading our own tips into the database
+    """
     id = models.AutoField(primary_key=True)
     python_tip = models.CharField(max_length=140)
     your_twitter_name = models.CharField(max_length=140)
@@ -23,6 +26,9 @@ class PostDailyTip(models.Model):
 
 # models for saving our links
 class TweetLinks(models.Model):
+    """
+    This table is used to hold links attached to a specific tweet
+    """
     url = models.URLField()
     expanded_url = models.URLField()
     display_url = models.URLField()
@@ -32,6 +38,9 @@ class TweetLinks(models.Model):
     
 
 class DailyTip(models.Model):
+    """
+    This table is used for storing our data being returned when we run our celery to fetch tweets from a user's timeline
+    """
     id = models.AutoField(primary_key=True)
     tip_id = models.IntegerField()
     python_tip = models.TextField(max_length=500)

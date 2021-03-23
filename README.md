@@ -58,6 +58,14 @@ For testing purposes you make configure the job to run every minute
 
             'schedule': crontab()
 
+**Note** This application has been configured to fetch only 300 tweets by job, incase you want to increase or reduce it, navigate to the setting.py and update this line of code
+
+            NUMBER_OF_TWEETS = "300"
+
+**Note** you can also change the twitter user's timeline you are fetching by updating the code snippet below in your settings.py
+
+            TWITTER_USER = "python_tip"
+
 To read more about scheduling period task using celery, visit https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html
 
 For example of of how to use it, feel free to read my short article here https://baronchibuike.medium.com/scheduling-periodic-task-in-django-rest-using-celery-and-redis-f67754eca013
@@ -78,6 +86,7 @@ For further more detailed information, you can checkout this documentation https
 
 ## Next step
 Integrate docker into the project
+
 Write test cases
 
 ## Acknowledge
