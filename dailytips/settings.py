@@ -172,6 +172,7 @@ TWITTER_USER = "python_tip"
 # number of tweets we want returned from twitter
 NUMBER_OF_TWEETS = "20"
 
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'tips:home'
@@ -181,5 +182,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# For twitter social auth login
 SOCIAL_AUTH_TWITTER_KEY = config("CONSUMER_KEY")
 SOCIAL_AUTH_TWITTER_SECRET = config("CONSUMER_SECRET")

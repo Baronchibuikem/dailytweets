@@ -11,8 +11,7 @@ app = Celery('dailytips')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix.
+
 app.config_from_object('django.conf:settings', namespace='')
 
 
@@ -22,8 +21,8 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
 # Executes every Monday morning at 7:30 a.m.
 'run_testing': {
-    # run this task every minute
+    # this task runs every 6hours since tips are dropped every day
     'task': 'tips.tasks.get_daily_tips',
-    'schedule': crontab()
+    'schedule': crontab(minute='0' , hour='6')
   },
 }
