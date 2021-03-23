@@ -9,6 +9,7 @@ import tweepy
 # import custom built libraries
 from dailytips.celery import app
 from tips.models import DailyTip,TweetLinks
+from utils import tweepy_authourization
 
 
 
@@ -17,14 +18,8 @@ logger = get_task_logger(__name__)
 
 @app.task
 def get_daily_tips():
-    # twitter authentication for application using tweepy
-    auth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
-    auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_TOKEN_SECRET)
-
-    api = tweepy.API(auth)
-
-    #CHECK IF ANY TWEETS IN DB
-    #AND GET THE LAST ordered by timestamp
+    api = tweepy_authourization.tweep_auth()
+    
     timeline = None
 
     # check if DB contains saved tweets ordered by their timestamp, if it does, get the last tweet

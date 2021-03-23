@@ -3,7 +3,7 @@
 {% block title %}Daily tweets | {% endblock title %}
 
 {% block content %}
-    <h3 class="my-5 text-center"> Display Tweets according to popularity using number of likes</h3>
+    <h3 class="my-5 pt-5 text-center"> Display Tweets according to popularity using number of likes</h3>
     {% for tweet in tweets %}
         <div class="card my-5 shadow-sm">
             <h5 class="card-header"><small>Posted by</small> {{ tweet.posted_by}} on {{ tweet.timestamp }}</h5>
@@ -15,7 +15,7 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex ">
-                    <span class="mr-5"> Total Retweets {{tweet.retweets}}</span>
+                    <span class="mr-5"> Total Retweets <a href={{tweet.retweets}}</span>
                     <span> Total likes {{tweet.likes }} </span>
                 </div>
             </div>
