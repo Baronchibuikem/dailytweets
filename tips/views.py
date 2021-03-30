@@ -15,7 +15,7 @@ from utils import tweepy_authourization
 
 
 @login_required
-def displaytweets(request):  
+def displayscheduledtweets(request):  
     # fetch all objects from DailyTip table in the database  
     tweets = DailyTip.objects.all()
 
@@ -57,3 +57,7 @@ def retweet_tip(request, id):
 
     
     
+@login_required
+def displaytweets(request):
+    query = request.GET.get("q")
+    print(query, "value entered")
