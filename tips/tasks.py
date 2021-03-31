@@ -18,4 +18,4 @@ logger = get_task_logger(__name__)
 
 @app.task
 def get_daily_tips():
-    get_tweets()
+    get_tweets.fetch_tweets_and_save_to_db()

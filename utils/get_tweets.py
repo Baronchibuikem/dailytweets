@@ -11,7 +11,7 @@ from utils import tweepy_authourization
 
 
 
-def get_tweet_from_user_timeline(request):
+def fetch_tweets_and_save_to_db(request):
     api = tweepy_authourization.tweep_auth()
     
     timeline = None
@@ -90,3 +90,82 @@ def get_tweet_from_user_timeline(request):
                     tweets.urls.add(tweetlink)
     else:
         print("No new tweet has been added")
+
+
+
+def fetch_tweets(username = None):
+    api = tweepy_authourization.tweep_auth()
+    
+    timeline = None
+
+    # will be used to populate our tweet objects
+    tweets_obj = {}
+
+    # check if DB contains saved tweets ordered by their timestamp, if it does, get the last tweet
+    last_tweet = DailyTip.objects.all().order_by('timestamp').last()
+
+    # if the value of last_tweet is None exclude the "since_id" from the parameters you are passing to user_timeline
+    if last_tweet == None:
+        print("No tweet found. We are running this for the first time")
+
+        # id: the name of the user whose timeline we want to get
+        # count: maximum allowed tweets count
+        # tweet_mode: extended to get the full text,it prevents a primary tweet longer than 140 characters from being truncated.
+        # exclude_replies: this will prevent replies from appearing in the returned timeline. 
+        timeline = api.user_timeline(
+            id=username,
+            count=settings.NUMBER_OF_TWEETS,
+            tweet_mode="extended",
+            exclude_replies=True
+        )
+    # if the value of last_tweet is not none, we will include the "since_id" parameter
+    else:
+        print("Displaying the ID of the last saved tweet",last_tweet.id)
+
+        # id: the name of the user whose timeline we want to get
+        # count: maximum allowed tweets count
+        # tweet_mode: extended to get the full text,it prevents a primary tweet longer than 140 characters from being truncated.
+        # exclude_replies: this will prevent replies from appearing in the returned timeline. 
+        # since_id: returns only statuses with an ID greater than (that is, more recent than) the specified ID
+        timeline = api.user_timeline(
+            id=settings.username,
+            count=settings.NUMBER_OF_TWEETS,
+            tweet_mode="extended",
+            exclude_replies=True,
+            since_id = last_tweet.tip_id
+        )
+    
+
+
+    # we check if the length of our timeline is greater than zero, which means we have existing tweets
+    if len(timeline)!=0:
+        for tweet in timeline:
+            # we get all links attached to a tweet tip
+            urls = tweet.entities["urls"]
+
+            if len(urls)!=0:
+                for url in urls:
+                    tweets_obj["url"] = url["url"],
+                    tweets_obj["expanded_url"] = url["expanded_url"],
+                    tweets_obj["display_url"] = url["display_url"]
+            
+            # adding the tweet objects to our empty tweet_obj dictionary
+            tweets_obj["python_tip"] = tweet.full_text
+            tweets_obj["posted_by"] = tweet.user.name
+            tweets_obj["timestamp"] = tweet.created_at
+            tweets_obj["retweets"] = tweet.retweet_count
+            tweets_obj['likes'] = tweet.favorite_count
+            tweets_obj["id"] = tweet.id
+       
+            # print(tweets_obj) 
+            tweet_callback(tweets_obj)
+        # yield(tweets_obj)
+                    
+    else:
+        print("No new tweet has been added")
+    
+    # return (tweets_obj)
+
+def tweet_callback(value=None):
+    return(value)
+    

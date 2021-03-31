@@ -10,7 +10,7 @@ from django.http import HttpResponse
 
 # custom imports
 from tips.models import DailyTip
-from utils import tweepy_authourization
+from utils import tweepy_authourization, get_tweets
 
 
 
@@ -59,5 +59,10 @@ def retweet_tip(request, id):
     
 @login_required
 def displaytweets(request):
+    # to allow user get tweets from any user's timeline
     query = request.GET.get("q")
     print(query, "value entered")
+    get_tweets.fetch_tweets(query)
+    tweets = get_tweets.tweet_callback()
+    print(tweets, "--------- from views")
+    return HttpResponse("success")
