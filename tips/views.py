@@ -59,10 +59,10 @@ def retweet_tip(request, id):
     
 @login_required
 def displaytweets(request):
+    tweet_instance =  get_tweets.Tweets()
     # to allow user get tweets from any user's timeline
     query = request.GET.get("q")
-    print(query, "value entered")
-    get_tweets.fetch_tweets(query)
-    tweets = get_tweets.tweet_callback()
-    print(tweets, "--------- from views")
+    tweet_instance.fetch_tweets(query)
+    tweets = tweet_instance.tweet_callback
+    [print(tweet) for tweet in tweets]
     return HttpResponse("success")
