@@ -179,7 +179,7 @@ ACCESS_TOKEN_SECRET = config("ACCESS_TOKEN_SECRET")
 TWITTER_USER = "python_tip"
 
 # number of tweets we want returned from twitter
-NUMBER_OF_TWEETS = "10"
+NUMBER_OF_TWEETS = "50"
 
 
 LOGIN_URL = 'login'

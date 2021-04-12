@@ -62,7 +62,28 @@ def displaytweets(request):
     tweet_instance =  get_tweets.Tweets()
     # to allow user get tweets from any user's timeline
     query = request.GET.get("q")
-    tweet_instance.fetch_tweets(query)
+
+    if query:
+        # pass the search query entered by the user to fetch all the user's tweet
+        tweet_instance.fetch_tweets(query)
+
+    # callback to get the tweets
     tweets = tweet_instance.tweet_callback
-    [print(tweet) for tweet in tweets]
-    return HttpResponse("success")
+    print([tweet for tweet in tweets])
+
+    # for pagination
+    paginator = Paginator(tweets, 20)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        page_obj = paginator.get_page(paginator.num_pages)
+    
+    # context dictionary
+    context = {
+        "tweets": page_obj
+    }
+    template = "tips/getTweets.html"
+    return render(request, template, context)

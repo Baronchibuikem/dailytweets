@@ -152,7 +152,7 @@ class Tweets:
                             "expanded_url" : url["expanded_url"],
                             "display_url" : url["display_url"]
                         })
-                    print("TWEEEEEEEEEEEEEE", tweet_obj)    
+                    # print("TWEEEEEEEEEEEEEE", self.tweets_obj)    
                 self.tweets_obj.append({
                     "text": tweet.full_text,
                     "posted_by": tweet.user.name,
@@ -160,7 +160,6 @@ class Tweets:
                     "retweets": tweet.retweet_count,
                     "likes": tweet.favorite_count,
                     "tweet_id": tweet.id,
-                   
                     })
                                 
                         
