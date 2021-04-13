@@ -101,8 +101,6 @@ class Tweets:
         
         timeline = None
 
-        # will be used to populate our tweet objects
-        twe_obj = {"id": 1, "name": "Andy"}
 
         # check if DB contains saved tweets ordered by their timestamp, if it does, get the last tweet
         last_tweet = DailyTip.objects.all().order_by('timestamp').last()

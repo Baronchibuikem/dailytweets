@@ -62,6 +62,7 @@ def displaytweets(request):
     tweet_instance =  get_tweets.Tweets()
     # to allow user get tweets from any user's timeline
     query = request.GET.get("q")
+    print(query)
 
     if query:
         # pass the search query entered by the user to fetch all the user's tweet
@@ -69,7 +70,7 @@ def displaytweets(request):
 
     # callback to get the tweets
     tweets = tweet_instance.tweet_callback
-    print([tweet for tweet in tweets])
+    # print([tweet for tweet in tweets])
 
     # for pagination
     paginator = Paginator(tweets, 20)

@@ -37,9 +37,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('tips/', include("tips.urls", namespace="tips")),
+    path('', include("tips.urls", namespace="tips")),
     path('login/', auth_views.LoginView.as_view(template_name="login.html"), name='login'),
     path('oauth/', include('social_django.urls', namespace='social')), 
     path('api/v1/tips/', include("tips.api.urls", namespace="tips-api")),
-    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

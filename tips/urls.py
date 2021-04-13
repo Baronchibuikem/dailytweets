@@ -4,7 +4,7 @@ from tips.views import displayscheduledtweets, retweet_tip, displaytweets
 app_name = "tips"
 
 urlpatterns = [
-    path('', displayscheduledtweets, name="home"),
+    path('', displaytweets, name="post-tweets"),
+    path('s/', displayscheduledtweets, name="home"),
     path('retweet/<int:id>/', retweet_tip, name="retweet"),
-    path('post-tweets/', displaytweets, name="post-tweets")
 ]
