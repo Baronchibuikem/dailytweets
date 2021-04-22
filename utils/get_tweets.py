@@ -96,7 +96,7 @@ class Tweets:
         self.tweets_obj = []
 
     
-    def fetch_tweets(self, username = None):
+    def fetch_tweets(self, username = None, tweet_size=50):
         api = tweepy_authourization.tweep_auth()
         
         timeline = None
@@ -115,9 +115,10 @@ class Tweets:
             # exclude_replies: this will prevent replies from appearing in the returned timeline. 
             timeline = api.user_timeline(
                 id=username,
-                count=settings.NUMBER_OF_TWEETS,
+                count=tweet_size,
                 tweet_mode="extended",
-                exclude_replies=True
+                exclude_replies=True,
+                parser=tweepy.parsers.JSONParser()
             )
         # if the value of last_tweet is not none, we will include the "since_id" parameter
         else:
@@ -130,10 +131,11 @@ class Tweets:
             # since_id: returns only statuses with an ID greater than (that is, more recent than) the specified ID
             timeline = api.user_timeline(
                 id=settings.username,
-                count=settings.NUMBER_OF_TWEETS,
+                count=tweet_size,
                 tweet_mode="extended",
                 exclude_replies=True,
-                since_id = last_tweet.tip_id
+                since_id = last_tweet.tip_id,
+                parser=tweepy.parsers.JSONParser()
             )
         
 
@@ -141,23 +143,28 @@ class Tweets:
         # we check if the length of our timeline is greater than zero, which means we have existing tweets
         if len(timeline)!=0:
             for tweet in timeline:
-                urls = tweet.entities["urls"]
+                import json
+                # print(json.dumps(tweet,indent=4))
+                urls = tweet["entities"]["urls"]
 
                 if len(urls)!=0:
                     for url in urls:
-                        tweet_obj.append({
+                        self.tweets_obj.append({
                             "url" : url["url"],
                             "expanded_url" : url["expanded_url"],
                             "display_url" : url["display_url"]
                         })
                     # print("TWEEEEEEEEEEEEEE", self.tweets_obj)    
+
                 self.tweets_obj.append({
-                    "text": tweet.full_text,
-                    "posted_by": tweet.user.name,
-                    "timestamp": tweet.created_at,
-                    "retweets": tweet.retweet_count,
-                    "likes": tweet.favorite_count,
-                    "tweet_id": tweet.id,
+                    "text": tweet["full_text"],
+                    "posted_by": tweet["user"]["name"],
+                    "timestamp": tweet["created_at"],
+                    "retweets": tweet["retweet_count"],
+                    "likes": tweet["favorite_count"],
+                    "tweet_id": tweet["id"],
+                    # "retweet_text":tweet["retweeted_status"]["full_text"],
+                    # "retweet_text_author": tweet["retweeted_status"]["user"]["screen_name"]
                     })
                                 
                         

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container">
-    <a class="navbar-brand" href="{% url 'tips:home' %}">Daily Python Tip</a>
+    <a class="navbar-brand" href="{% url 'tips:home' %}">Tweet Retrieval</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,10 +9,12 @@
            
         </ul>
         <ul class="navbar-nav">
-             <form method="GET" action="" class="form-inline">
-                <input class="form-control" width="100%" type="text" name="q" placeholder="Enter Keyword" value="{{ request.GET.q }}"/>
-                <button class="btn btn-outline-success my-2 ml-3 my-sm-0" type="submit">Search</button>
-              </form> 
+           
+              {% if request.user.is_authenticated %}
+                 <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 ml-3 my-sm-0" type="submit">Logout</a>
+              {% else %}
+               <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-outline-success my-2 ml-3 my-sm-0" type="submit">Login with Twitter</a>             
+            {% endif %}
         </ul>
     </div>
     </div>

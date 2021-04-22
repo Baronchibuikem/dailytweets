@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.contrib.auth import logout
 
 # third party imports
 
@@ -11,6 +13,12 @@ from django.http import HttpResponse
 # custom imports
 from tips.models import DailyTip
 from utils import tweepy_authourization, get_tweets
+
+
+def logout_request(request):
+    logout(request)
+    return redirect("tips:home")
+
 
 
 
@@ -61,16 +69,18 @@ def retweet_tip(request, id):
 def displaytweets(request):
     tweet_instance =  get_tweets.Tweets()
     # to allow user get tweets from any user's timeline
-    query = request.GET.get("q")
-    print(query)
+    username = request.GET.get("username")
+    tweet_size = request.GET.get("tweetNumber")
+    print(username, tweet_size)
+    
 
-    if query:
-        # pass the search query entered by the user to fetch all the user's tweet
-        tweet_instance.fetch_tweets(query)
+    if username:
+        # pass the seausername entered by the user to fetch all the user's tweet
+        tweet_instance.fetch_tweets(username, tweet_size)
 
     # callback to get the tweets
     tweets = tweet_instance.tweet_callback
-    # print([tweet for tweet in tweets])
+    print([tweet for tweet in tweets])
 
     # for pagination
     paginator = Paginator(tweets, 20)
@@ -84,7 +94,8 @@ def displaytweets(request):
     
     # context dictionary
     context = {
-        "tweets": page_obj
+        "tweets": page_obj,
+        "get_user": username
     }
     template = "tips/getTweets.html"
     return render(request, template, context)

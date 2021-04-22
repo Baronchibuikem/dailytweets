@@ -1,7 +1,29 @@
 {% extends 'base.html' %} {% block title %}Daily tweets | {% endblock title %}
 {% block content %}
-<h3 class="my-5 pt-5 text-center">
-  Display User tweets according to popularity using number of likes
+
+<div class="my-5 pt-5 col-md-9 mx-auto">
+<h2> Search for Tweet</h2>
+  <form method="GET" action="" class="form-inline">
+        <div class="input-group input-group-lg mb-3 mr-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter twitter username" aria-label="username" aria-describedby="basic-addon1" value="{{ request.GET.username }}"  name="username">
+        </div>
+        <div class="input-group input-group-lg mb-3 mr-4">
+            <input type="number" class="form-control" placeholder="number of tweets to fetch" aria-label="tweetNumber" value="{{ request.GET.tweetNumber }}"  name="tweetNumber">
+        </div>
+             <div class="input-group input-group-lg mb-3">  
+              <button class="form-control btn btn-outline-success p-2 w-100" type="submit">Search</button>
+            </div>
+  </form> 
+  </div>
+<h3 class="my-5 text-center">
+  {% if get_user == None %}
+  No tweets to display
+  {% else %}
+    Displaying tweets  by {{get_user}}. Click on the retweet icon to retweet a tweet
+  {% endif %}
 </h3>
 {% for tweet in tweets %}
 <div class="card my-5 shadow-sm">
@@ -9,12 +31,25 @@
     <small>Posted by</small> {{ tweet.posted_by}} on {{ tweet.timestamp }}
   </h5>
   <div class="card-body">
-    <p class="card-text">{{ tweet.text}}</p>
-        {% for link in tweet.urls %}
+  {% comment %} {% if tweet.retweet_text != None %}
+    <p class="card-text">RT @{{ tweet.retweet_text_author }}: {{ tweet.retweet_text}}</p>
+     
+     {% for link in tweet.urls %}
         <a href="{{link.expanded_url}}" target="__blank" class=""
         >{{link.display_url}}</a
         >
         {% endfor %}
+  {% else %} {% endcomment %}
+    <p class="card-text">{{ tweet.text}}</p>
+    <p>
+     {% for link in tweet.urls %}
+        <a href="{{link.expanded_url}}" target="__blank" class=""
+        >{{link.display_url}}</a
+        >
+        {% endfor %}
+        </p>
+  {% comment %} {% endif %} {% endcomment %}
+       
   </div>
   <div class="card-footer">
     <div class="d-flex">
